@@ -16,15 +16,17 @@ jobs:
           ./sdl.py "ko:重刊老乞大諺解 002.pdf" -o /tmp/sdl/jungno-b &
 
           pip install -r jungno-requirements.txt
-          sed --in-place 's/; dragon.+//g' jungno.sh
+          sed -E --in-place 's/; dragon.+//g' jungno.sh
           chmod +x jungno.sh
           ./jungno.sh
 
           git checkout --orphan gh-pages || git checkout gh-pages
+		  ls
           rm * -rv
+		  ls
           cp /tmp/jungno.* .
           git add jungno.*
           git config user.email '-'
           git config user.name 'GitHub Actions'
           git commit -m 'Update'
-          git push
+          git push --set-upstream origin gh-pages
