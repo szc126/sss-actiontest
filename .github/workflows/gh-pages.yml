@@ -1,11 +1,11 @@
-name: Github Pages
+name: GitHub Pages
 on:
   schedule:
     - cron: '0 0,12 * * 1'
   workflow_dispatch:
 jobs:
   gh-pages:
-    name: Download text
+    name: GitHub Pages
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -15,6 +15,7 @@ jobs:
           ./sdl.py "ko:重刊老乞大諺解 001.pdf" -o /tmp/sdl/jungno-a &
           ./sdl.py "ko:重刊老乞大諺解 002.pdf" -o /tmp/sdl/jungno-b &
 
+		  pip install -r jungno-requirements.txt
           sed --in-place 's/; dragon.+//g' jungno.sh
           chmod +x jungno.sh
           ./jungno.sh
