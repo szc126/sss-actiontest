@@ -23,7 +23,7 @@ jobs:
 
       - run: git checkout --orphan gh-pages || git checkout gh-pages
       - run: ls
-      - run: rm * -rv
+      - run: git rm -rf .
       - run: ls
       - run: cp /tmp/jungno.* .
       - run: git add jungno.*
