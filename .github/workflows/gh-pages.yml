@@ -9,23 +9,29 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        books: ['jungno', 'yeokhae']
+        book: ['jungno', 'yeokhae']
     steps:
       - uses: actions/checkout@v2
 
-      - run: chmod +x ${{ matrix.build-dir }}-dl.sh
-      - run: ./${{ matrix.build-dir }}-dl.sh
+      - name: Download book
+        run: |
+          chmod +x "${{ matrix.book }}-dl.sh"
+          ./${{ matrix.book }}-dl.sh
 
-      - run: pip install -r ${{ matrix.build-dir }}-requirements.txt
-      - run: sed -E --in-place 's/; dragon.+//g' ${{ matrix.build-dir }}.sh
-      - run: chmod +x ${{ matrix.build-dir }}.sh
-      - run: ./${{ matrix.build-dir }}.sh
+      - name: Generate tables
+        run: |
+          pip install -r "${{ matrix.book }}-requirements.txt"
+          sed -E --in-place 's/; dragon.+//g' ${{ matrix.book }}.sh
+          chmod +x ${{ matrix.book }}.sh
+          ./${{ matrix.book }}.sh
 
-      - run: git checkout --orphan gh-pages || git checkout gh-pages
-      - run: git rm -rf .
-      - run: cp /tmp/${{ matrix.build-dir }}.* .
-      - run: git add ${{ matrix.build-dir }}.*
-      - run: git config user.email '-'
-      - run: git config user.name 'GitHub Actions'
-      - run: git commit -m 'Update'
-      - run: git push --set-upstream origin gh-pages
+      - name: Push
+        run: |
+          git checkout --orphan gh-pages || git checkout gh-pages
+          git rm -rf .
+          cp /tmp/${{ matrix.book }}.* .
+          git add ${{ matrix.book }}.*
+          git config user.email '-'
+          git config user.name 'GitHub Actions'
+          git commit -m 'Update'
+          git push --set-upstream origin gh-pages
