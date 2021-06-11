@@ -21,9 +21,9 @@ jobs:
           ./jungno.sh
 
           git checkout --orphan gh-pages || git checkout gh-pages
-		  ls
+          ls
           rm * -rv
-		  ls
+          ls
           cp /tmp/jungno.* .
           git add jungno.*
           git config user.email '-'
