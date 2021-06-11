@@ -7,26 +7,24 @@ jobs:
   gh-pages:
     name: GitHub Pages
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        books: ['jungno', 'yeokhae']
     steps:
       - uses: actions/checkout@v2
-      - run: wget "https://raw.githubusercontent.com/${GITHUB_ACTOR}/sdl/main/sdl.py"
-      - run: wget "https://raw.githubusercontent.com/${GITHUB_ACTOR}/sdl/main/sdl-requirements.txt"
-      - run: pip install -r sdl-requirements.txt
-      - run: chmod +x sdl.py
-      - run: ./sdl.py "ko:重刊老乞大諺解 001.pdf" -o /tmp/sdl/jungno-a &
-      - run: ./sdl.py "ko:重刊老乞大諺解 002.pdf" -o /tmp/sdl/jungno-b &
 
-      - run: pip install -r jungno-requirements.txt
-      - run: sed -E --in-place 's/; dragon.+//g' jungno.sh
-      - run: chmod +x jungno.sh
-      - run: ./jungno.sh
+      - run: chmod +x ${{ matrix.build-dir }}-dl.sh
+      - run: ./${{ matrix.build-dir }}-dl.sh
+
+      - run: pip install -r ${{ matrix.build-dir }}-requirements.txt
+      - run: sed -E --in-place 's/; dragon.+//g' ${{ matrix.build-dir }}.sh
+      - run: chmod +x ${{ matrix.build-dir }}.sh
+      - run: ./${{ matrix.build-dir }}.sh
 
       - run: git checkout --orphan gh-pages || git checkout gh-pages
-      - run: ls
       - run: git rm -rf .
-      - run: ls
-      - run: cp /tmp/jungno.* .
-      - run: git add jungno.*
+      - run: cp /tmp/${{ matrix.build-dir }}.* .
+      - run: git add ${{ matrix.build-dir }}.*
       - run: git config user.email '-'
       - run: git config user.name 'GitHub Actions'
       - run: git commit -m 'Update'
