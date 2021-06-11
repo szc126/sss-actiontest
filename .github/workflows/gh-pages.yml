@@ -2,6 +2,7 @@ name: Github Pages
 on:
   schedule:
     - cron: '0 0,12 * * 1'
+  workflow_dispatch:
 jobs:
   gh-pages:
     name: Download text
@@ -9,20 +10,20 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: |
-        wget 'https://raw.githubusercontent.com/${GITHUB_ACTOR}/sdl/main/sdl.py'
-        chmod +x sdl.py
-        ./sdl.py "ko:重刊老乞大諺解 001.pdf" -o /tmp/sdl/jungno-a &
-        ./sdl.py "ko:重刊老乞大諺解 002.pdf" -o /tmp/sdl/jungno-b &
+          wget 'https://raw.githubusercontent.com/${GITHUB_ACTOR}/sdl/main/sdl.py'
+          chmod +x sdl.py
+          ./sdl.py "ko:重刊老乞大諺解 001.pdf" -o /tmp/sdl/jungno-a &
+          ./sdl.py "ko:重刊老乞大諺解 002.pdf" -o /tmp/sdl/jungno-b &
 
-        sed --in-place 's/; dragon.+//g' jungno.sh
-        chmod +x jungno.sh
-        ./jungno.sh
+          sed --in-place 's/; dragon.+//g' jungno.sh
+          chmod +x jungno.sh
+          ./jungno.sh
 
-        git checkout --orphan gh-pages || git checkout gh-pages
-        rm * -rv
-        cp /tmp/jungno.* .
-        git add jungno.*
-        git config user.email '-'
-        git config user.name 'GitHub Actions'
-        git commit -m 'Update'
-        git push
+          git checkout --orphan gh-pages || git checkout gh-pages
+          rm * -rv
+          cp /tmp/jungno.* .
+          git add jungno.*
+          git config user.email '-'
+          git config user.name 'GitHub Actions'
+          git commit -m 'Update'
+          git push
