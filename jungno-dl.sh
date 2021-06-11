@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 chmod +x sdl.py
-./sdl.py /tmp/sdl/jungno-{a,b}/* -c text > /tmp/jungno.txt &
-./sdl.py /tmp/sdl/jungno-{a,b}/* -c html > /tmp/jungno.htm; dragon /tmp/jungno.htm &
+./sdl.py "ko:重刊老乞大諺解 001.pdf" -o "/tmp/sdl/jungno-a" &
+./sdl.py "ko:重刊老乞大諺解 002.pdf" -o "/tmp/sdl/jungno-b" &
