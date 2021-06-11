@@ -15,7 +15,7 @@ jobs:
           ./sdl.py "ko:重刊老乞大諺解 001.pdf" -o /tmp/sdl/jungno-a &
           ./sdl.py "ko:重刊老乞大諺解 002.pdf" -o /tmp/sdl/jungno-b &
 
-		  pip install -r jungno-requirements.txt
+          pip install -r jungno-requirements.txt
           sed --in-place 's/; dragon.+//g' jungno.sh
           chmod +x jungno.sh
           ./jungno.sh
