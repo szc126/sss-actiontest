@@ -10,7 +10,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: |
-          wget 'https://raw.githubusercontent.com/${GITHUB_ACTOR}/sdl/main/sdl.py'
+          wget "https://raw.githubusercontent.com/${GITHUB_ACTOR}/sdl/main/sdl.py"
           chmod +x sdl.py
           ./sdl.py "ko:重刊老乞大諺解 001.pdf" -o /tmp/sdl/jungno-a &
           ./sdl.py "ko:重刊老乞大諺解 002.pdf" -o /tmp/sdl/jungno-b &
