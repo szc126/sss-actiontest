@@ -20,7 +20,7 @@ jobs:
 
       - name: Generate tables
         run: |
-          pip install -r "${{ matrix.book }}-requirements.txt"
+          pip install -r ${{ matrix.book }}-requirements.txt
           sed -E --in-place 's/; dragon.+//g' ${{ matrix.book }}.sh
           chmod +x ${{ matrix.book }}.sh
           ./${{ matrix.book }}.sh
