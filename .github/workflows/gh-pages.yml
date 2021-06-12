@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        book: ['jungno', 'yeokhae']
+        book: ['jungno']
     steps:
       - uses: actions/checkout@v2
 
