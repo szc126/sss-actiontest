@@ -15,7 +15,7 @@ jobs:
 
       - name: Download book
         run: |
-          chmod +x "${{ matrix.book }}-dl.sh"
+          chmod +x "*.sh" "*.py"
           ./${{ matrix.book }}-dl.sh
 
       - name: Generate tables
