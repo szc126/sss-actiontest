@@ -19,7 +19,10 @@ jobs:
 
       - name: Download SDL
         run: |
-          ./download-sdl.sh
+         wget --no-clobber "https://raw.githubusercontent.com/${GITHUB_ACTOR:?Download whose copy of sdl}/sdl/main/sdl-requirements.txt" -O"/tmp/sdl-requirements.txt"
+         pip install -r "/tmp/sdl-requirements.txt"
+         wget --no-clobber "https://raw.githubusercontent.com/${GITHUB_ACTOR:?Download whose copy of sdl}/sdl/main/sdl.py" -O"/tmp/sdl.py"
+         chmod +x "/tmp/sdl.py"
 
       - name: Download book
         run: |
